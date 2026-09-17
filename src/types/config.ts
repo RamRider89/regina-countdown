@@ -1,3 +1,8 @@
+export interface Participant {
+  name: string;
+  avatar?: string;
+}
+
 export interface VacationTheme {
   primaryColor: string;    // CSS hex
   secondaryColor: string;
@@ -10,7 +15,7 @@ export interface VacationConfig {
   departureDate: string;   // ISO 8601
   timezone: string;
   destination: string;
-  participants: string[];
+  participants: Participant[];
   theme: VacationTheme;
   backgroundImage?: string;
   backgroundVideo?: string;

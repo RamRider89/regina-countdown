@@ -4,7 +4,10 @@
   "departureDate": "2026-10-22T08:00:00Z",
   "timezone": "America/Mexico_City",
   "destination": "Cancún, México",
-  "participants": ["Carlos", "Regina"],
+  "participants": [
+    { "name": "Carlos", "avatar": "https://media.giphy.com/media/niqMm1JmwVXkg7aCjM/giphy.webp" },
+    { "name": "Regina", "avatar": "https://media.giphy.com/media/ufaVXKvdElqVPed2rz/giphy.webp" }
+  ],
   "theme": {
     "primaryColor": "#0078D8",
     "secondaryColor": "#F5C040",

@@ -1,68 +1,294 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+  /* Overridden at runtime from config.json */
+  --primary-color: #0057b8;
+  --secondary-color: #00a3e0;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  /* Glass */
+  --glass-bg: rgba(255, 255, 255, 0.08);
+  --glass-border: rgba(255, 255, 255, 0.15);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  --glass-blur: 12px;
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  /* Typography */
+  --font: 'Inter', system-ui, -apple-system, sans-serif;
+
+  /* Palette */
+  --color-text: #ffffff;
+  --color-text-muted: rgba(255, 255, 255, 0.72);
+  --color-bg: #0a0a0f;
+
+  /* Spacing */
+  --gap-sm: 0.75rem;
+  --gap-md: 1.5rem;
+  --gap-lg: 3rem;
+
+  /* Shape */
+  --radius-card: 16px;
+  --radius-btn: 999px;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+html, body {
+  height: 100%;
 }
 
 body {
-  margin: 0;
-  display: flex;
-  place-items: center;
+  font-family: var(--font);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
   min-width: 320px;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Loading ─────────────────────────────────── */
+
+.loading-screen {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   min-height: 100vh;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+.spinner {
+  width: 48px;
+  height: 48px;
+  border: 3px solid rgba(255, 255, 255, 0.1);
+  border-top-color: var(--primary-color);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+/* ── Error ───────────────────────────────────── */
+
+.error-screen {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  min-height: 100vh;
+  color: #ff6b6b;
+  text-align: center;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
+/* ── Hero ────────────────────────────────────── */
+
+.hero {
+  position: relative;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1rem;
+  text-align: center;
+  overflow: hidden;
+  background-color: var(--color-bg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* dark overlay */
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(0, 0, 0, 0.75) 0%,
+    rgba(0, 0, 30, 0.65) 50%,
+    rgba(0, 0, 0, 0.82) 100%
+  );
+  z-index: 0;
+}
+
+.hero > * {
+  position: relative;
+  z-index: 1;
+}
+
+.hero__logo {
+  max-height: 72px;
+  max-width: 200px;
+  object-fit: contain;
+  margin-bottom: var(--gap-lg);
+  animation: fade-down 0.6s ease both;
+}
+
+.hero__title {
+  font-size: clamp(1.75rem, 5vw, 3.5rem);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+  margin-bottom: var(--gap-sm);
+  animation: fade-down 0.6s 0.1s ease both;
+}
+
+.hero__subtitle {
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
+  font-weight: 400;
+  color: var(--color-text-muted);
+  margin-bottom: var(--gap-lg);
+  animation: fade-down 0.6s 0.2s ease both;
+}
+
+/* ── Countdown Grid ──────────────────────────── */
+
+.countdown-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap-sm);
+  justify-content: center;
+  margin-bottom: var(--gap-lg);
+  animation: fade-up 0.6s 0.3s ease both;
+}
+
+/* ── Countdown Card ──────────────────────────── */
+
+.countdown-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 80px;
+  padding: 1.25rem 1rem;
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-card);
+  box-shadow: var(--glass-shadow);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.countdown-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+}
+
+.countdown-card__value {
+  display: block;
+  font-size: clamp(2rem, 6vw, 3.5rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  animation: pop-in 0.18s ease both;
+}
+
+.countdown-card__label {
+  display: block;
+  font-size: 0.68rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--color-text-muted);
+  margin-top: 0.5rem;
+}
+
+/* ── CTA Button ──────────────────────────────── */
+
+.cta-button {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.875rem 2.5rem;
+  border-radius: var(--radius-btn);
+  background-color: var(--primary-color);
+  color: #ffffff;
+  font-family: var(--font);
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  text-decoration: none;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  transition: opacity 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  animation: fade-up 0.6s 0.4s ease both;
+}
+
+.cta-button:hover {
+  opacity: 0.88;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.4);
+}
+
+.cta-button:focus-visible {
+  outline: 3px solid rgba(255, 255, 255, 0.85);
+  outline-offset: 4px;
+}
+
+.cta-button:active {
+  transform: translateY(0);
+}
+
+/* ── Completion ──────────────────────────────── */
+
+.completion-message {
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: var(--gap-lg);
+  animation: fade-up 0.4s ease both;
+}
+
+/* ── Keyframes ───────────────────────────────── */
+
+@keyframes fade-down {
+  from { opacity: 0; transform: translateY(-20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pop-in {
+  from { opacity: 0; transform: scale(0.75); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ── Responsive ──────────────────────────────── */
+
+@media (min-width: 768px) {
+  .countdown-card {
+    min-width: 110px;
+    padding: 1.5rem 1.25rem;
   }
-  a:hover {
-    color: #747bff;
+  .countdown-grid {
+    gap: var(--gap-md);
   }
-  button {
-    background-color: #f9f9f9;
+}
+
+@media (min-width: 1280px) {
+  .countdown-card {
+    min-width: 140px;
+    padding: 2rem 1.5rem;
+  }
+}
+
+/* ── Reduced motion ──────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
   }
 }

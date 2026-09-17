@@ -1,4 +1,3 @@
-// TODO: hover/focus states, accessibility (aria-label when needed)
 interface Props {
   href: string;
   primaryColor: string;

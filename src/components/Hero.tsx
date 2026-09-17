@@ -1,4 +1,3 @@
-// TODO: background-image with overlay, logo, responsive layout, micro-animations
 import { CountdownConfig } from '../types/config';
 import { CountdownGrid } from './CountdownGrid';
 import { CtaButton } from './CtaButton';
@@ -11,11 +10,7 @@ export function Hero({ config }: Props) {
   return (
     <main
       className="hero"
-      style={
-        config.backgroundImage
-          ? { backgroundImage: `url(${config.backgroundImage})` }
-          : undefined
-      }
+      style={config.backgroundImage ? { backgroundImage: `url(${config.backgroundImage})` } : undefined}
     >
       {config.logo && (
         <img src={config.logo} alt="Logo" className="hero__logo" />

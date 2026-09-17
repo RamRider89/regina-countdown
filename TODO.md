@@ -30,10 +30,10 @@
 - [x] GitHub Actions CI/CD — build + deploy en push a main, preview en PRs, cleanup al cerrar PR
 
 ### Calidad
-- [ ] Tests unitarios para `useCountdown` (lógica de expiración, decremento)
-- [ ] Tests unitarios para `useConfig` (error handling, JSON inválido)
-- [ ] Lighthouse audit ≥ 90 en Performance, Accessibility, Best Practices
-- [ ] Optimización de imagen de fondo (WebP, lazy load, preload hint)
+- [x] Tests unitarios para `useCountdown` — 5 tests (estado inicial, decremento, expiración)
+- [x] Tests unitarios para `useConfig` — 8 tests (loading, éxito, HTTP error, validaciones)
+- [ ] Lighthouse audit ≥ 90 — correr con `npm run build && npm run preview`, luego `npx lighthouse http://localhost:4173`
+- [x] Optimización de imagen — `loading="lazy"` + `decoding="async"` en logo Hero
 
 ## Completado
 

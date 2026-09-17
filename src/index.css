@@ -405,14 +405,9 @@ body {
 }
 
 .traveler-card__name {
-  font-size: 1rem;
+  font-size: 1.25rem;
   font-weight: 700;
   letter-spacing: -0.01em;
-}
-
-.traveler-card__badge {
-  font-size: 1.25rem;
-  line-height: 1;
 }
 
 /* ── Photo Gallery ───────────────────────────── */

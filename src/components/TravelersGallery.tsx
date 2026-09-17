@@ -18,7 +18,6 @@ export function TravelersGallery({ participants }: Props) {
             }
           </div>
           <span className="traveler-card__name">{name}</span>
-          <span className="traveler-card__badge" aria-hidden="true">✈️</span>
         </div>
       ))}
     </div>

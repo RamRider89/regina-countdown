@@ -13,9 +13,7 @@
   "backgroundImage": "/images/beach.png",
   "backgroundVideo": "",
   "stickers": [
-    "https://media.giphy.com/media/8pYMOn1sEb43EloTf8/giphy.gif",
-    "https://media.giphy.com/media/kGUzwPu5wpCtbZdMw2/giphy.gif",
-    "https://media.giphy.com/media/Atfsrr48SdA02BKnJJ/giphy.gif"
+    "https://media.giphy.com/media/mV0dlV15cjxIfedlYr/giphy.webp"
   ],
   "gallery": ["/images/beach-1.png", "/images/beach-2.png"],
   "completionMessage": "🎉 ¡Llegó el gran día! Es momento de comenzar la aventura."

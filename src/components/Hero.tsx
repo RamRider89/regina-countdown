@@ -15,6 +15,11 @@ export function Hero({ config }: Props) {
       ? config.backgroundVideoMobile
       : config.backgroundVideo;
 
+  const avatarUrls = new Set(
+    config.participants.map((p) => p.avatar).filter(Boolean)
+  );
+  const stickers = (config.stickers ?? []).filter((url) => !avatarUrls.has(url));
+
   return (
     <main
       className="hero"
@@ -24,7 +29,7 @@ export function Hero({ config }: Props) {
           : undefined
       }
     >
-      {config.stickers && <StickerLayer stickers={config.stickers} />}
+      {stickers.length > 0 && <StickerLayer stickers={stickers} />}
       {videoSrc && (
         <video
           className="hero__video-bg"

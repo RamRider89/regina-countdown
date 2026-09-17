@@ -1,0 +1,13 @@
+{
+  "targetDate": "2027-01-01T00:00:00Z",
+  "timezone": "America/Mexico_City",
+  "title": "Próximo Gran Lanzamiento",
+  "subtitle": "Falta muy poco para comenzar",
+  "backgroundImage": "",
+  "logo": "",
+  "primaryColor": "#0057B8",
+  "secondaryColor": "#00A3E0",
+  "ctaText": "Conoce Más",
+  "ctaUrl": "https://example.com",
+  "completionMessage": "¡Ya comenzamos!"
+}

@@ -3,6 +3,7 @@ import { CountdownGrid } from './CountdownGrid';
 import { DestinationCard } from './DestinationCard';
 import { ParticipantsList } from './ParticipantsList';
 import { PhotoGallery } from './PhotoGallery';
+import { StickerLayer } from './StickerLayer';
 
 interface Props {
   config: VacationConfig;
@@ -18,6 +19,7 @@ export function Hero({ config }: Props) {
           : undefined
       }
     >
+      {config.stickers && <StickerLayer stickers={config.stickers} />}
       {config.backgroundVideo && (
         <video
           className="hero__video-bg"

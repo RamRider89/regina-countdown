@@ -14,6 +14,7 @@ export interface VacationConfig {
   theme: VacationTheme;
   backgroundImage?: string;
   backgroundVideo?: string;
+  stickers?: string[];
   gallery?: string[];
   completionMessage: string;
 }

@@ -371,6 +371,27 @@ body {
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.55);
 }
 
+/* ── Stickers (GIFs decorativos) ─────────────── */
+
+.sticker {
+  position: absolute;
+  width: clamp(56px, 7vw, 96px);
+  pointer-events: none;
+  z-index: 2;
+  opacity: 0.88;
+  animation: sticker-float 4s ease-in-out infinite alternate;
+}
+
+.sticker--top-right    { top: 8%;    right: 5%;  animation-delay: 0s;    }
+.sticker--bottom-left  { bottom: 10%; left: 4%;  animation-delay: 1.2s;  }
+.sticker--top-left     { top: 12%;   left: 6%;   animation-delay: 0.6s;  }
+.sticker--bottom-right { bottom: 8%; right: 6%;  animation-delay: 1.8s;  }
+.sticker--mid-right    { top: 44%;   right: 3%;  animation-delay: 2.4s;  }
+
+@media (max-width: 767px) {
+  .sticker { display: none; }
+}
+
 /* ── Celebration Overlay ─────────────────────── */
 
 .celebration-overlay {
@@ -426,6 +447,11 @@ body {
   to   { opacity: 1; transform: scale(1.07); }
 }
 
+@keyframes sticker-float {
+  from { transform: translateY(0)     rotate(-4deg); }
+  to   { transform: translateY(-14px) rotate(4deg);  }
+}
+
 @keyframes bounce-in {
   from { opacity: 0; transform: scale(0.5); }
   60%  { transform: scale(1.06); }
@@ -469,5 +495,8 @@ body {
   }
   .hero::after {
     animation: none;
+  }
+  .sticker {
+    display: none;
   }
 }

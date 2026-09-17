@@ -11,7 +11,7 @@ export function TravelersGallery({ participants }: Props) {
     <div className="travelers-gallery" aria-label="Viajeros">
       {participants.map(({ name, avatar }) => (
         <div key={name} className="traveler-card">
-          <div className="traveler-card__avatar" aria-hidden="true">
+          <div className={`traveler-card__avatar${avatar ? ' traveler-card__avatar--image' : ''}`} aria-hidden="true">
             {avatar
               ? <img src={avatar} alt="" className="traveler-card__avatar-img" />
               : <UserCircle className="traveler-card__icon" strokeWidth={1.25} />

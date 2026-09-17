@@ -386,6 +386,11 @@ body {
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
 }
 
+.traveler-card__avatar--image {
+  background: transparent;
+  box-shadow: none;
+}
+
 .traveler-card__icon {
   width: 52px;
   height: 52px;

@@ -15,6 +15,7 @@ export interface VacationConfig {
   departureDate: string;   // ISO 8601
   timezone: string;
   destination: string;
+  destinationImage?: string;
   participants: Participant[];
   theme: VacationTheme;
   backgroundImage?: string;

@@ -2,7 +2,7 @@ import { VacationConfig } from '../types/config';
 import { CountdownGrid } from './CountdownGrid';
 import { DestinationCard } from './DestinationCard';
 import { TravelersGallery } from './TravelersGallery';
-import { StickerLayer } from './StickerLayer';
+import { FloatingStickers } from './FloatingStickers';
 
 interface Props {
   config: VacationConfig;
@@ -18,7 +18,7 @@ export function Hero({ config }: Props) {
   const avatarUrls = new Set(
     config.participants.map((p) => p.avatar).filter(Boolean)
   );
-  const stickers = (config.stickers ?? []).filter((url) => !avatarUrls.has(url));
+  const stickerPool = (config.stickers ?? []).filter((url) => !avatarUrls.has(url));
 
   return (
     <main
@@ -29,7 +29,7 @@ export function Hero({ config }: Props) {
           : undefined
       }
     >
-      {stickers.length > 0 && <StickerLayer stickers={stickers} />}
+      {stickerPool.length > 0 && <FloatingStickers pool={stickerPool} maxVisible={3} />}
       {videoSrc && (
         <video
           className="hero__video-bg"
@@ -50,7 +50,7 @@ export function Hero({ config }: Props) {
         <CountdownGrid config={config} />
 
         <div className="hero__info-row">
-          <DestinationCard destination={config.destination} />
+          <DestinationCard destination={config.destination} destinationImage={config.destinationImage} />
         </div>
 
         <TravelersGallery participants={config.participants} />

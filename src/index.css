@@ -268,11 +268,10 @@ body {
   align-items: center;
   gap: 0.5rem;
   padding: 0.75rem 1.5rem;
-  background: var(--glass-bg);
+  background: rgba(255, 255, 255, 0.02);
   backdrop-filter: blur(var(--glass-blur));
   -webkit-backdrop-filter: blur(var(--glass-blur));
   border: 1px solid var(--glass-border);
-  border-left: 4px solid var(--accent-color);
   border-radius: var(--radius-card);
   box-shadow: var(--glass-shadow);
 }
@@ -286,6 +285,13 @@ body {
   font-size: 1.05rem;
   font-weight: 700;
   letter-spacing: -0.01em;
+}
+
+.destination-card__img {
+  display: block;
+  height: clamp(40px, 6vw, 72px);
+  width: auto;
+  object-fit: contain;
 }
 
 /* ── Participants ─────────────────────────────── */
@@ -459,6 +465,21 @@ body {
   .sticker { display: none; }
 }
 
+/* ── Floating Stickers (random appear/disappear) ─ */
+
+.floating-sticker {
+  position: absolute;
+  pointer-events: none;
+  z-index: 2;
+  transform-origin: center center;
+  animation: sticker-appear var(--dur, 6000ms) ease both;
+  will-change: opacity, transform;
+}
+
+@media (max-width: 767px) {
+  .floating-sticker { display: none; }
+}
+
 /* ── Celebration Overlay ─────────────────────── */
 
 .celebration-overlay {
@@ -517,6 +538,14 @@ body {
 @keyframes sticker-float {
   from { transform: translateY(0)     rotate(-4deg); }
   to   { transform: translateY(-14px) rotate(4deg);  }
+}
+
+@keyframes sticker-appear {
+  0%   { opacity: 0;    transform: scale(0.3)  rotate(var(--rot, 0deg)) translateY(10px);  }
+  10%  { opacity: 0.95; transform: scale(1.12) rotate(var(--rot, 0deg)) translateY(0);     }
+  22%  { opacity: 0.9;  transform: scale(1)    rotate(var(--rot, 0deg)) translateY(0);     }
+  75%  { opacity: 0.88; transform: scale(1)    rotate(var(--rot, 0deg)) translateY(-10px); }
+  100% { opacity: 0;    transform: scale(0.4)  rotate(var(--rot, 0deg)) translateY(-22px); }
 }
 
 @keyframes bounce-in {

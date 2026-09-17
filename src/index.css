@@ -382,10 +382,14 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.75rem;
-  font-weight: 800;
   background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+}
+
+.traveler-card__icon {
+  width: 52px;
+  height: 52px;
+  color: rgba(255, 255, 255, 0.92);
 }
 
 .traveler-card__name {

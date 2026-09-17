@@ -29,6 +29,9 @@ npm run dev      # http://localhost:5173
 | `npm run build` | Build de producción → `dist/` |
 | `npm run preview` | Preview del build local |
 | `npm run lint` | ESLint |
+| `npm run test:run` | Tests unitarios (una pasada) |
+| `npm test` | Tests en modo watch |
+| `npm run test:coverage` | Tests + reporte de cobertura |
 
 ## Configuración
 
@@ -52,8 +55,22 @@ Edita `public/config.json` — no requiere recompilar:
 
 - React 18 + TypeScript + Vite 5
 - Node 22
+- Vitest 2 + Testing Library
 
 ## Despliegue
 
-Destino principal: **Azure Static Web Apps**.  
-El archivo `staticwebapp.config.json` (pendiente) configura el SPA fallback.
+Destino principal: **Azure Static Web Apps** (CI/CD via GitHub Actions).
+
+Secret requerido en GitHub: `AZURE_STATIC_WEB_APPS_API_TOKEN`
+
+## Lighthouse
+
+Para auditar localmente:
+
+```bash
+npm run build && npm run preview
+# En otra terminal:
+npx lighthouse http://localhost:4173 --view
+```
+
+Targets: Performance ≥ 90 · Accessibility ≥ 90 · Best Practices ≥ 90

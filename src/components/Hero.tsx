@@ -13,7 +13,7 @@ export function Hero({ config }: Props) {
       style={config.backgroundImage ? { backgroundImage: `url(${config.backgroundImage})` } : undefined}
     >
       {config.logo && (
-        <img src={config.logo} alt="Logo" className="hero__logo" />
+        <img src={config.logo} alt="Logo" className="hero__logo" loading="lazy" decoding="async" />
       )}
       <h1 className="hero__title">{config.title}</h1>
       <p className="hero__subtitle">{config.subtitle}</p>

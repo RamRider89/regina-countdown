@@ -13,6 +13,7 @@ export interface VacationConfig {
   participants: string[];
   theme: VacationTheme;
   backgroundImage?: string;
+  backgroundVideo?: string;
   gallery?: string[];
   completionMessage: string;
 }

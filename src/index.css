@@ -104,7 +104,7 @@ body {
   background-repeat: no-repeat;
 }
 
-/* dark overlay (used when backgroundImage is set) */
+/* dark overlay (used when backgroundImage or video is set) */
 .hero::before {
   content: '';
   position: absolute;
@@ -115,7 +115,7 @@ body {
     rgba(11, 16, 38, 0.30) 45%,
     rgba(11, 16, 38, 0.72) 100%
   );
-  z-index: 0;
+  z-index: 1;
 }
 
 /* animated ambient glow */
@@ -127,13 +127,30 @@ body {
     radial-gradient(ellipse at 18% 22%, rgba(59, 130, 246, 0.28) 0%, transparent 50%),
     radial-gradient(ellipse at 82% 78%, rgba(249, 115, 22, 0.22) 0%, transparent 50%),
     radial-gradient(ellipse at 50% 50%, rgba(34, 197, 94, 0.10) 0%, transparent 65%);
-  z-index: 0;
+  z-index: 2;
   animation: glow-pulse 8s ease-in-out infinite alternate;
 }
 
 .hero > * {
   position: relative;
-  z-index: 1;
+  z-index: 3;
+}
+
+/* ── Video background ────────────────────────── */
+
+.hero__video-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__video-bg {
+    display: none;
+  }
 }
 
 .hero__content {

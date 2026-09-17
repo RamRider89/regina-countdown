@@ -18,6 +18,17 @@ export function Hero({ config }: Props) {
           : undefined
       }
     >
+      {config.backgroundVideo && (
+        <video
+          className="hero__video-bg"
+          src={config.backgroundVideo}
+          autoPlay
+          muted
+          loop
+          playsInline
+          aria-hidden="true"
+        />
+      )}
       <div className="hero__content">
         <p className="hero__eyebrow">✈️ La aventura comienza en...</p>
         <h1 className="hero__title">{config.tripName}</h1>

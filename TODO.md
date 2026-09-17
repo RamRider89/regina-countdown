@@ -9,9 +9,8 @@
 
 ## Pendiente (feature/regina_trip)
 
-- [ ] Actualizar tests de `useConfig` para el nuevo schema `VacationConfig`
 - [ ] `public/config.json` — rellenar con datos reales del viaje (fechas, nombres, destino)
-- [ ] Agregar imágenes de fondo / galería en `public/` si se desean
+- [x] Imágenes de prueba en `public/images/` (beach.png, beach-1.png, beach-2.png)
 - [ ] PR + merge a main cuando esté validado visualmente
 
 ## Completado
@@ -47,7 +46,7 @@
 - [x] GitHub Actions CI/CD — tests → build → deploy en push a main, preview en PRs
 
 ### Calidad
-- [x] 13 tests unitarios (Vitest 2 + Testing Library) — 5 `useCountdown`, 8 `useConfig`
+- [x] 14 tests unitarios (Vitest 2 + Testing Library) — 5 `useCountdown`, 9 `useConfig`
 - [x] Tests integrados en CI (bloquean deploy si fallan)
 - [x] `CLAUDE.md` y `README.md` actualizados
 

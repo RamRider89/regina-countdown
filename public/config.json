@@ -1,16 +1,17 @@
 {
-  "tripName": "Vacaciones en Japón",
+  "tripName": "Vacaciones en México",
   "subtitle": "Preparándonos para una nueva aventura",
   "departureDate": "2027-04-10T08:00:00Z",
   "timezone": "America/Mexico_City",
-  "destination": "Tokio, Japón",
-  "participants": ["Carlos", "Andrea", "Santiago"],
+  "destination": "Cancún, México",
+  "participants": ["Carlos", "Regina"],
   "theme": {
     "primaryColor": "#3B82F6",
     "secondaryColor": "#F97316",
     "accentColor": "#22C55E"
   },
-  "backgroundImage": "",
-  "gallery": [],
+  "backgroundImage": "/images/beach.png",
+  "backgroundVideo": "",
+  "gallery": ["/images/beach-1.png", "/images/beach-2.png"],
   "completionMessage": "🎉 ¡Llegó el gran día! Es momento de comenzar la aventura."
 }

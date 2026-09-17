@@ -237,10 +237,7 @@ body {
   animation: pop-in 0.18s ease both;
 }
 
-.countdown-card:nth-child(1) .countdown-card__value { color: var(--primary-color); }
-.countdown-card:nth-child(2) .countdown-card__value { color: var(--secondary-color); }
-.countdown-card:nth-child(3) .countdown-card__value { color: var(--accent-color); }
-.countdown-card:nth-child(4) .countdown-card__value { color: var(--primary-color); }
+.countdown-card__value { color: #ffffff; }
 
 .countdown-card__label {
   display: block;

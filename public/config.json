@@ -6,9 +6,9 @@
   "destination": "Cancún, México",
   "participants": ["Carlos", "Regina"],
   "theme": {
-    "primaryColor": "#3B82F6",
-    "secondaryColor": "#F97316",
-    "accentColor": "#22C55E"
+    "primaryColor": "#0078D8",
+    "secondaryColor": "#F5C040",
+    "accentColor": "#00C8F0"
   },
   "backgroundImage": "/images/beach-long.png",
   "backgroundVideo": "/videos/beach-long-r.mp4",

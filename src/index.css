@@ -483,7 +483,8 @@ body {
     margin-top: 0.5rem;
   }
   .photo-gallery {
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(200px, 260px));
+    justify-content: center;
   }
 }
 

@@ -10,6 +10,12 @@ interface Props {
 }
 
 export function Hero({ config }: Props) {
+  const videoSrc = config.backgroundVideoMobile &&
+    typeof window !== 'undefined' &&
+    window.matchMedia('(max-width: 767px)').matches
+      ? config.backgroundVideoMobile
+      : config.backgroundVideo;
+
   return (
     <main
       className="hero"
@@ -20,10 +26,11 @@ export function Hero({ config }: Props) {
       }
     >
       {config.stickers && <StickerLayer stickers={config.stickers} />}
-      {config.backgroundVideo && (
+      {videoSrc && (
         <video
           className="hero__video-bg"
-          src={config.backgroundVideo}
+          src={videoSrc}
+          poster={config.backgroundImage}
           autoPlay
           muted
           loop

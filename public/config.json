@@ -1,7 +1,7 @@
 {
   "tripName": "Vacaciones en México",
   "subtitle": "Preparándonos para una nueva aventura",
-  "departureDate": "2027-04-10T08:00:00Z",
+  "departureDate": "2026-10-22T08:00:00Z",
   "timezone": "America/Mexico_City",
   "destination": "Cancún, México",
   "participants": ["Carlos", "Regina"],
@@ -10,8 +10,9 @@
     "secondaryColor": "#F97316",
     "accentColor": "#22C55E"
   },
-  "backgroundImage": "/images/beach.png",
+  "backgroundImage": "/images/beach-long.png",
   "backgroundVideo": "/videos/beach-long-r.mp4",
+  "backgroundVideoMobile": "/videos/beach-mobile-r.mp4",
   "stickers": [
     "https://media.giphy.com/media/niqMm1JmwVXkg7aCjM/giphy.webp",
     "https://media.giphy.com/media/ufaVXKvdElqVPed2rz/giphy.webp",

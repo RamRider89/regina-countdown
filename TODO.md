@@ -2,50 +2,44 @@
 
 ## Pendiente
 
-### Diseño Visual
-- [x] `src/index.css` — reset global, CSS custom properties para colores dinámicos (`--primary-color`, `--secondary-color`)
-- [x] `Hero.tsx` — overlay con degradado sobre `backgroundImage`, layout centrado full-height
-- [x] `CountdownCard.tsx` — glassmorphism (backdrop-filter, border rgba, box-shadow suave), efecto hover
-- [x] `CtaButton.tsx` — estados hover/focus, `outline` accesible en focus-visible
-- [x] Tipografía — Inter desde Google Fonts
-- [x] Animaciones — fade-down/fade-up en entrada, pop-in por cambio de valor, prefers-reduced-motion
-- [x] Mobile-first responsive — breakpoints 320px / 768px / 1280px
-
-### Funcionalidad
-- [x] `useConfig.ts` — validación básica del JSON cargado (campos requeridos presentes)
-- [x] Redirección automática al expirar (5 s de gracia, solo si `ctaUrl` está configurado)
-- [x] Loading state — spinner con aria-label mientras carga `config.json`
-- [x] Favicon dinámico — `<link rel="icon">` actualizado desde `config.logo` en runtime
-
-### Accesibilidad & SEO
-- [x] `index.html` — `<title>` y `<meta description>` dinámicos desde config (via `useEffect`)
-- [x] Atributos ARIA en `CountdownGrid` (role="timer", aria-live="polite", aria-atomic)
-- [ ] Contraste de colores validado con `primaryColor`/`secondaryColor` configurados (WCAG AA)
-- [ ] Navegación por teclado completa
-
-### Configuración & Despliegue
-- [x] `staticwebapp.config.json` — SPA fallback + headers de seguridad para Azure Static Web Apps
 - [ ] `public/config.json` — completar con valores reales de producción
-- [x] ~~Variables de entorno Vite~~ — descartado, config runtime via `public/config.json` ya cubre el requisito
-- [x] GitHub Actions CI/CD — build + deploy en push a main, preview en PRs, cleanup al cerrar PR
-
-### Calidad
-- [x] Tests unitarios para `useCountdown` — 5 tests (estado inicial, decremento, expiración)
-- [x] Tests unitarios para `useConfig` — 8 tests (loading, éxito, HTTP error, validaciones)
-- [ ] Lighthouse audit ≥ 90 — correr con `npm run build && npm run preview`, luego `npx lighthouse http://localhost:4173`
-- [x] Optimización de imagen — `loading="lazy"` + `decoding="async"` en logo Hero
+- [ ] Lighthouse audit ≥ 90 — `npm run build && npm run preview`, luego `npx lighthouse http://localhost:4173`
+- [ ] Contraste de colores validado (WCAG AA) con los colores reales de producción
+- [ ] Secreto `AZURE_STATIC_WEB_APPS_API_TOKEN` configurado en GitHub para activar el CI/CD
 
 ## Completado
 
-- [x] Scaffolding React + Vite + TypeScript
-- [x] Estructura de carpetas (`components/`, `hooks/`, `types/`)
-- [x] `CountdownConfig` / `TimeRemaining` interfaces (`src/types/config.ts`)
-- [x] `useConfig` hook — carga `public/config.json` en runtime
-- [x] `useCountdown` hook — timer con `setInterval`, limpia al expirar
-- [x] `CountdownCard` — componente de unidad (días/horas/minutos/segundos)
-- [x] `CountdownGrid` — grid de 4 tarjetas, muestra `completionMessage` al expirar
-- [x] `Hero` — sección principal, orquesta logo/título/subtítulo/grid/CTA
-- [x] `CtaButton` — enlace externo con color primario desde config
-- [x] `App.tsx` — raíz con manejo de loading/error
-- [x] `public/config.json` — valores por defecto del contrato
-- [x] `CLAUDE.md` — documentación del repo para Claude Code
+### Scaffolding & Arquitectura
+- [x] React 18 + TypeScript + Vite 5, Node 22
+- [x] Estructura `components/`, `hooks/`, `types/`
+- [x] `CountdownConfig` / `TimeRemaining` interfaces
+- [x] `public/config.json` — config en runtime, sin recompilar
+
+### Funcionalidad
+- [x] `useConfig` — fetch + validación (campos requeridos, fecha ISO, colores hex)
+- [x] `useCountdown` — setInterval, limpia al expirar
+- [x] Redirección automática al expirar (5 s, solo si `ctaUrl` configurado)
+- [x] Favicon dinámico desde `config.logo`
+- [x] `<title>` y `<meta description>` dinámicos desde config
+
+### Diseño Visual
+- [x] Glassmorphism cards (backdrop-filter, border rgba, shadow)
+- [x] Hero full-height con overlay degradado sobre backgroundImage
+- [x] Animaciones entrada (fade-down/fade-up) y pop-in por tick de segundos
+- [x] Tipografía Inter, responsive 320/768/1280px
+- [x] `prefers-reduced-motion` respetado
+- [x] Loading spinner, error screen
+
+### Accesibilidad & SEO
+- [x] `role="timer"` + `aria-live="polite"` + `aria-atomic` en CountdownGrid
+- [x] `focus-visible` en CtaButton
+- [x] `loading="lazy"` + `decoding="async"` en logo
+
+### Despliegue
+- [x] `staticwebapp.config.json` — SPA fallback + headers de seguridad
+- [x] GitHub Actions CI/CD — tests → build → deploy en push a main, preview en PRs
+
+### Calidad
+- [x] 13 tests unitarios (Vitest 2 + Testing Library) — 5 `useCountdown`, 8 `useConfig`
+- [x] Tests integrados en CI (bloquean deploy si fallan)
+- [x] `CLAUDE.md` y `README.md` actualizados

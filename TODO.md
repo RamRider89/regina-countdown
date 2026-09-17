@@ -12,10 +12,10 @@
 - [x] Mobile-first responsive — breakpoints 320px / 768px / 1280px
 
 ### Funcionalidad
-- [ ] `useConfig.ts` — validación básica del JSON cargado (campos requeridos presentes)
-- [ ] Redirección automática opcional al expirar (`config.ctaUrl` si está configurado)
+- [x] `useConfig.ts` — validación básica del JSON cargado (campos requeridos presentes)
+- [x] Redirección automática al expirar (5 s de gracia, solo si `ctaUrl` está configurado)
 - [x] Loading state — spinner con aria-label mientras carga `config.json`
-- [ ] Favicon dinámico o logo en `<head>` desde config
+- [x] Favicon dinámico — `<link rel="icon">` actualizado desde `config.logo` en runtime
 
 ### Accesibilidad & SEO
 - [x] `index.html` — `<title>` y `<meta description>` dinámicos desde config (via `useEffect`)

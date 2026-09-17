@@ -1,13 +1,16 @@
 {
-  "targetDate": "2027-01-01T00:00:00Z",
+  "tripName": "Vacaciones en Japón",
+  "subtitle": "Preparándonos para una nueva aventura",
+  "departureDate": "2027-04-10T08:00:00Z",
   "timezone": "America/Mexico_City",
-  "title": "Próximo Gran Lanzamiento",
-  "subtitle": "Falta muy poco para comenzar",
+  "destination": "Tokio, Japón",
+  "participants": ["Carlos", "Andrea", "Santiago"],
+  "theme": {
+    "primaryColor": "#3B82F6",
+    "secondaryColor": "#F97316",
+    "accentColor": "#22C55E"
+  },
   "backgroundImage": "",
-  "logo": "",
-  "primaryColor": "#0057B8",
-  "secondaryColor": "#00A3E0",
-  "ctaText": "Conoce Más",
-  "ctaUrl": "https://example.com",
-  "completionMessage": "¡Ya comenzamos!"
+  "gallery": [],
+  "completionMessage": "🎉 ¡Llegó el gran día! Es momento de comenzar la aventura."
 }

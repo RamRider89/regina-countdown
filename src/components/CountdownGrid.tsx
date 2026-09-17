@@ -1,10 +1,10 @@
-import { useEffect } from 'react';
 import { CountdownCard } from './CountdownCard';
+import { CelebrationOverlay } from './CelebrationOverlay';
 import { useCountdown } from '../hooks/useCountdown';
-import { CountdownConfig } from '../types/config';
+import { VacationConfig } from '../types/config';
 
 interface Props {
-  config: CountdownConfig;
+  config: VacationConfig;
 }
 
 const UNITS = [
@@ -14,19 +14,11 @@ const UNITS = [
   { key: 'seconds' as const, label: 'Segundos' },
 ];
 
-const REDIRECT_DELAY_MS = 5_000;
-
 export function CountdownGrid({ config }: Props) {
-  const time = useCountdown(config.targetDate);
-
-  useEffect(() => {
-    if (!time.isExpired || !config.ctaUrl) return;
-    const id = setTimeout(() => { window.location.href = config.ctaUrl; }, REDIRECT_DELAY_MS);
-    return () => clearTimeout(id);
-  }, [time.isExpired, config.ctaUrl]);
+  const time = useCountdown(config.departureDate);
 
   if (time.isExpired) {
-    return <p className="completion-message">{config.completionMessage}</p>;
+    return <CelebrationOverlay message={config.completionMessage} />;
   }
 
   return (
@@ -35,7 +27,7 @@ export function CountdownGrid({ config }: Props) {
       role="timer"
       aria-live="polite"
       aria-atomic="true"
-      aria-label="Cuenta regresiva"
+      aria-label="Cuenta regresiva para el viaje"
     >
       {UNITS.map(({ key, label }) => (
         <CountdownCard key={key} value={time[key]} label={label} />

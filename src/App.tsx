@@ -8,28 +8,14 @@ export default function App() {
   useEffect(() => {
     if (!config) return;
 
-    // CSS custom properties from config
     const root = document.documentElement;
-    root.style.setProperty('--primary-color', config.primaryColor);
-    root.style.setProperty('--secondary-color', config.secondaryColor);
+    root.style.setProperty('--primary-color', config.theme.primaryColor);
+    root.style.setProperty('--secondary-color', config.theme.secondaryColor);
+    root.style.setProperty('--accent-color', config.theme.accentColor);
 
-    // SEO meta
-    document.title = config.title;
+    document.title = `✈️ ${config.tripName}`;
     const meta = document.querySelector('meta[name="description"]');
     if (meta) meta.setAttribute('content', config.subtitle);
-
-    // Favicon from logo
-    if (config.logo) {
-      const link =
-        document.querySelector<HTMLLinkElement>('link[rel="icon"]') ??
-        (() => {
-          const el = document.createElement('link');
-          el.rel = 'icon';
-          document.head.appendChild(el);
-          return el;
-        })();
-      link.href = config.logo;
-    }
   }, [config]);
 
   if (loading) {
@@ -41,7 +27,11 @@ export default function App() {
   }
 
   if (error) {
-    return <p className="error-screen">Error al cargar configuración: {error}</p>;
+    return (
+      <p className="error-screen" role="alert">
+        Error al cargar configuración: {error}
+      </p>
+    );
   }
 
   if (!config) return null;

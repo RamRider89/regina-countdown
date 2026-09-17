@@ -1,11 +1,18 @@
 # TODO — Regina Countdown
 
-## Pendiente
+## Pendiente (main)
 
 - [ ] `public/config.json` — completar con valores reales de producción
 - [ ] Lighthouse audit ≥ 90 — `npm run build && npm run preview`, luego `npx lighthouse http://localhost:4173`
 - [ ] Contraste de colores validado (WCAG AA) con los colores reales de producción
 - [ ] Secreto `AZURE_STATIC_WEB_APPS_API_TOKEN` configurado en GitHub para activar el CI/CD
+
+## Pendiente (feature/regina_trip)
+
+- [ ] Actualizar tests de `useConfig` para el nuevo schema `VacationConfig`
+- [ ] `public/config.json` — rellenar con datos reales del viaje (fechas, nombres, destino)
+- [ ] Agregar imágenes de fondo / galería en `public/` si se desean
+- [ ] PR + merge a main cuando esté validado visualmente
 
 ## Completado
 
@@ -43,3 +50,18 @@
 - [x] 13 tests unitarios (Vitest 2 + Testing Library) — 5 `useCountdown`, 8 `useConfig`
 - [x] Tests integrados en CI (bloquean deploy si fallan)
 - [x] `CLAUDE.md` y `README.md` actualizados
+
+### Rama feature/regina_trip (vacaciones)
+- [x] Spec revisada: `plan/Countdown_Vacaciones_Especificacion.md`
+- [x] `VacationConfig` / `VacationTheme` interfaces en `src/types/config.ts`
+- [x] `canvas-confetti` instalado (v1.9.4 + tipos)
+- [x] `public/config.json` migrado a schema `VacationConfig`
+- [x] `useConfig` actualizado — valida `VacationConfig` (tripName, departureDate, theme, participants)
+- [x] `CelebrationOverlay` — confetti + mensaje al expirar (reemplaza redirect)
+- [x] `DestinationCard` — tarjeta glassmorphism con 📍 destino
+- [x] `ParticipantsList` — burbujas con iniciales automáticas
+- [x] `PhotoGallery` — grid responsive desde `gallery[]`
+- [x] `CountdownGrid` actualizado — usa `departureDate`, muestra `CelebrationOverlay` al expirar
+- [x] `Hero` rediseñado — layout vacaciones, eyebrow, info-row, galería opcional
+- [x] `App.tsx` actualizado — inyecta `--accent-color`, title con ✈️
+- [x] `index.css` rediseñado — tema travel, glow animado, cards coloreadas por nth-child

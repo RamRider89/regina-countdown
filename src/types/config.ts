@@ -1,14 +1,19 @@
-export interface CountdownConfig {
-  targetDate: string;        // ISO 8601, e.g. "2027-01-01T00:00:00Z"
-  timezone: string;          // IANA, e.g. "America/Mexico_City"
-  title: string;
-  subtitle: string;
-  backgroundImage?: string;
-  logo?: string;
-  primaryColor: string;      // CSS hex, e.g. "#0057B8"
+export interface VacationTheme {
+  primaryColor: string;    // CSS hex
   secondaryColor: string;
-  ctaText: string;
-  ctaUrl: string;
+  accentColor: string;
+}
+
+export interface VacationConfig {
+  tripName: string;
+  subtitle: string;
+  departureDate: string;   // ISO 8601
+  timezone: string;
+  destination: string;
+  participants: string[];
+  theme: VacationTheme;
+  backgroundImage?: string;
+  gallery?: string[];
   completionMessage: string;
 }
 

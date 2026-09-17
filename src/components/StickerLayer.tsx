@@ -8,6 +8,9 @@ const POSITIONS = [
   'sticker--top-left',
   'sticker--bottom-right',
   'sticker--mid-right',
+  'sticker--mid-left',
+  'sticker--lower-right',
+  'sticker--lower-left',
 ] as const;
 
 export function StickerLayer({ stickers }: Props) {

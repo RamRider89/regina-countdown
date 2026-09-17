@@ -1,8 +1,7 @@
 import { VacationConfig } from '../types/config';
 import { CountdownGrid } from './CountdownGrid';
 import { DestinationCard } from './DestinationCard';
-import { ParticipantsList } from './ParticipantsList';
-import { PhotoGallery } from './PhotoGallery';
+import { TravelersGallery } from './TravelersGallery';
 import { StickerLayer } from './StickerLayer';
 
 interface Props {
@@ -47,12 +46,9 @@ export function Hero({ config }: Props) {
 
         <div className="hero__info-row">
           <DestinationCard destination={config.destination} />
-          <ParticipantsList participants={config.participants} />
         </div>
 
-        {config.gallery && config.gallery.length > 0 && (
-          <PhotoGallery images={config.gallery} />
-        )}
+        <TravelersGallery participants={config.participants} />
       </div>
     </main>
   );

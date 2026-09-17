@@ -344,6 +344,61 @@ body {
   color: var(--color-text-muted);
 }
 
+/* ── Travelers Gallery ───────────────────────── */
+
+.travelers-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap-md);
+  justify-content: center;
+  animation: fade-up 0.5s 0.5s ease both;
+}
+
+.traveler-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1.5rem 2rem;
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-card);
+  box-shadow: var(--glass-shadow);
+  min-width: 140px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.traveler-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
+}
+
+.traveler-card__avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.75rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+}
+
+.traveler-card__name {
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.traveler-card__badge {
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
 /* ── Photo Gallery ───────────────────────────── */
 
 .photo-gallery {

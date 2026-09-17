@@ -24,10 +24,10 @@
 - [ ] Navegación por teclado completa
 
 ### Configuración & Despliegue
-- [ ] `staticwebapp.config.json` — SPA fallback para Azure Static Web Apps
+- [x] `staticwebapp.config.json` — SPA fallback + headers de seguridad para Azure Static Web Apps
 - [ ] `public/config.json` — completar con valores reales de producción
-- [ ] Variables de entorno en Vite si se necesita configuración por entorno (`import.meta.env`)
-- [ ] GitHub Actions workflow para CI/CD a Azure Static Web Apps
+- [x] ~~Variables de entorno Vite~~ — descartado, config runtime via `public/config.json` ya cubre el requisito
+- [x] GitHub Actions CI/CD — build + deploy en push a main, preview en PRs, cleanup al cerrar PR
 
 ### Calidad
 - [ ] Tests unitarios para `useCountdown` (lógica de expiración, decremento)

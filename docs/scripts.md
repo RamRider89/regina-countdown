@@ -38,6 +38,8 @@ Requiere `gh` CLI instalado y autenticado.
 
 Actualiza el secret `AZURE_STATIC_WEB_APPS_API_TOKEN` en GitHub con el valor de la variable de entorno local del mismo nombre.
 
+> Nota: el secret activo del recurso actual es `AZURE_STATIC_WEB_APPS_API_TOKEN_PURPLE_PEBBLE_07A0DA800`, creado automáticamente por Azure. Este script actualiza el secret genérico; para el correcto, usar `gh secret set AZURE_STATIC_WEB_APPS_API_TOKEN_PURPLE_PEBBLE_07A0DA800`.
+
 ```bash
 ./scripts/fix-azure-token.sh
 ```
@@ -59,6 +61,8 @@ Muestra el estado de los últimos 5 runs del workflow de deploy.
 ```bash
 ./scripts/deploy-status.sh
 ```
+
+> Nota: el workflow activo se llama `azure-static-web-apps-purple-pebble-07a0da800.yml` (no `azure-deploy.yml`).
 
 ## scripts/trigger-deploy.sh
 

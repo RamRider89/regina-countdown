@@ -13,7 +13,9 @@
 
 ## CI/CD — GitHub Actions
 
-Archivo: `.github/workflows/azure-deploy.yml`
+Archivo: `.github/workflows/azure-static-web-apps-purple-pebble-07a0da800.yml`
+
+> **Importante:** El nombre del archivo NO puede cambiar. Azure SWA usa OIDC para verificar que el deploy viene de un workflow con nombre `azure-static-web-apps-<adjective>-<noun>-<hex>.yml`. Renombrarlo rompe el deploy.
 
 ### Triggers
 
@@ -26,77 +28,63 @@ Archivo: `.github/workflows/azure-deploy.yml`
 ### Pipeline
 
 ```
-checkout → setup Node 22 → npm ci → npm run test:run → npm run build → azure/static-web-apps-deploy@v1
+checkout → setup Node 22 → npm ci → npm run test:run → npm run build
+→ install OIDC client → get ID token → azure/static-web-apps-deploy@v1
 ```
 
 Los tests bloquean el deploy si fallan.
+
+### Autenticación (OIDC)
+
+Este recurso usa **OIDC (OpenID Connect)** — Azure verifica la identidad del workflow mediante un token firmado por GitHub, además del deployment token. Ambos son necesarios:
+
+```yaml
+permissions:
+  id-token: write    # requerido para obtener el OIDC token
+  contents: read
+
+steps:
+  - name: Install OIDC Client from Core Package
+    run: npm install @actions/core@1.6.0 @actions/http-client
+
+  - name: Get Id Token
+    uses: actions/github-script@v6
+    id: idtoken
+    with:
+      script: |
+        const coredemo = require('@actions/core')
+        return await coredemo.getIDToken()
+      result-encoding: string
+
+  - name: Build And Deploy
+    uses: Azure/static-web-apps-deploy@v1
+    with:
+      azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_PURPLE_PEBBLE_07A0DA800 }}
+      github_id_token: ${{ steps.idtoken.outputs.result }}
+      action: "upload"
+      app_location: "/"
+      output_location: "build"
+```
 
 ### Secrets requeridos
 
 | Secret | Descripción |
 |---|---|
-| `AZURE_STATIC_WEB_APPS_API_TOKEN` | Token de deployment de Azure (ver abajo) |
-| `GITHUB_TOKEN` | Automático de GitHub Actions — no configurar manualmente |
+| `AZURE_STATIC_WEB_APPS_API_TOKEN_PURPLE_PEBBLE_07A0DA800` | Creado automáticamente por Azure al conectar el repo. No renombrar. |
+| `GITHUB_TOKEN` | Automático de GitHub Actions |
 
-## Configurar / actualizar el token de Azure
+## Directorio de build
 
-### Paso 1 — Obtener el token desde Azure Portal
+Vite genera en `build/` (no `dist/`). Configurado en `vite.config.ts`:
 
-1. Ir a [Azure Portal](https://portal.azure.com)
-2. Buscar **Static Web Apps** → seleccionar `regina-countdown`
-3. En el menú izquierdo: **Settings** → **Deployment token** (o "Manage deployment token")
-4. Copiar el token
-
-### Paso 2 — Guardar en variable de entorno Ubuntu
-
-```bash
-# En ~/.bashrc o ~/.zshrc:
-export AZURE_STATIC_WEB_APPS_API_TOKEN="<token_copiado>"
-source ~/.zshrc  # o ~/.bashrc
+```ts
+build: {
+  outDir: 'build',
+  assetsInlineLimit: 4096,
+}
 ```
 
-### Paso 3 — Actualizar el secret en GitHub
-
-```bash
-./scripts/fix-azure-token.sh
-```
-
-O manualmente:
-
-```bash
-echo "$AZURE_STATIC_WEB_APPS_API_TOKEN" | \
-  GH_TOKEN="$GITHUB_TOKEN" gh secret set AZURE_STATIC_WEB_APPS_API_TOKEN \
-  --repo RamRider89/regina-countdown
-```
-
-### Paso 4 — Re-trigger el deploy
-
-```bash
-./scripts/deploy-status.sh         # ver estado actual
-./scripts/trigger-deploy.sh        # re-trigger manualmente
-```
-
-O hacer un push vacío:
-
-```bash
-git commit --allow-empty -m "ci: re-trigger deploy"
-git push
-```
-
-## Verificar deploy
-
-```bash
-# Ver el último workflow run
-GH_TOKEN="$GITHUB_TOKEN" gh run list \
-  --repo RamRider89/regina-countdown \
-  --workflow azure-deploy.yml \
-  --limit 5
-
-# Ver logs del último run
-GH_TOKEN="$GITHUB_TOKEN" gh run view \
-  --repo RamRider89/regina-countdown \
-  --log
-```
+Azure SWA Oryx builder espera `build/` por convención de Create React App. Cambiarlo a `dist/` rompe el deploy.
 
 ## staticwebapp.config.json
 
@@ -106,9 +94,7 @@ GH_TOKEN="$GITHUB_TOKEN" gh run view \
     "rewrite": "/index.html",
     "exclude": ["/assets/*", "/config.json", "*.{ico,png,svg,webp,jpg,jpeg,gif,woff,woff2}"]
   },
-  "mimeTypes": {
-    ".json": "application/json"
-  },
+  "mimeTypes": { ".json": "application/json" },
   "globalHeaders": {
     "X-Content-Type-Options": "nosniff",
     "X-Frame-Options": "DENY",
@@ -121,25 +107,38 @@ GH_TOKEN="$GITHUB_TOKEN" gh run view \
 }
 ```
 
-- `navigationFallback` → SPA routing: todas las rutas sirven `index.html`
-- `exclude` → assets estáticos pasan directamente, no reescritos
-- `globalHeaders` → headers de seguridad básicos
+## Verificar estado del deploy
+
+```bash
+./scripts/deploy-status.sh
+# o directamente:
+GH_TOKEN="$GITHUB_TOKEN" gh run list \
+  --repo RamRider89/regina-countdown \
+  --workflow azure-static-web-apps-purple-pebble-07a0da800.yml \
+  --limit 5
+```
 
 ## Troubleshooting
 
+### `Could not determine the Static Web App from the GitHub OIDC workflow reference`
+
+El workflow fue renombrado o el deploy viene de un archivo que no sigue el patrón `azure-static-web-apps-<adjective>-<noun>-<hex>.yml`.
+**Solución:** No renombrar el workflow. Agregar pasos a `azure-static-web-apps-purple-pebble-07a0da800.yml`.
+
+### `No matching Static Web App was found or the api key was invalid`
+
+El deployment token no corresponde al recurso, o falta la autenticación OIDC.
+**Solución:** Verificar que el secret es `AZURE_STATIC_WEB_APPS_API_TOKEN_PURPLE_PEBBLE_07A0DA800` y que el workflow incluye los pasos OIDC.
+
+### `The app build failed to produce artifact folder: 'build'`
+
+Vite está configurado para outputear a `dist/` en lugar de `build/`.
+**Solución:** Verificar `vite.config.ts` tiene `build: { outDir: 'build' }`.
+
 ### `deployment_token provided was invalid`
 
-El secret `AZURE_STATIC_WEB_APPS_API_TOKEN` en GitHub no coincide con el recurso Azure.
-**Solución:** Seguir "Configurar / actualizar el token de Azure" arriba.
-
-### `gh: Resource not accessible by personal access token`
-
-El PAT de GitHub no tiene permisos suficientes.
-**Solución:** El token necesita:
-- `Contents: Read and write`
-- `Pull requests: Read and write`
-- `Actions: Read` (para ver runs)
-- `Secrets: Read and write` (para `gh secret set`)
+El secret existe pero su valor es incorrecto o de un recurso distinto.
+**Solución:** Azure Portal → Static Web Apps → `regina-countdown` → Manage deployment token → regenerar.
 
 ### Build falla en tests
 
@@ -147,18 +146,12 @@ El PAT de GitHub no tiene permisos suficientes.
 npm run test:run  # correr localmente para ver el error
 ```
 
-### Config.json no encontrado en producción
-
-Azure Static Web Apps sirve archivos desde `dist/`. Verificar que `public/config.json`
-existe — Vite lo copia automáticamente al build.
-
 ## Deployments alternativos
 
 Si Azure no funciona, la app es un SPA estático compatible con:
 
 | Plataforma | Comando |
 |---|---|
-| GitHub Pages | `npm run build` → push `dist/` a rama `gh-pages` |
-| Netlify | Drag & drop `dist/` en netlify.com/drop |
+| GitHub Pages | `npm run build` → push `build/` a rama `gh-pages` |
+| Netlify | Drag & drop `build/` en netlify.com/drop |
 | Vercel | `vercel --prod` desde la raíz |
-| Cualquier CDN | Copiar `dist/` con redirect de 404 → `index.html` |

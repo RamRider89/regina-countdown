@@ -21,8 +21,8 @@ export function DepartureTimezones({ departureDate, timezones, label }: Props) {
     <div className="departure-timezones">
       <span className="departure-timezones__label">🕐 {label}</span>
       <div className="departure-timezones__list">
-        {timezones.map(({ label: tzLabel, tz }) => (
-          <div key={tz} className="departure-timezones__entry">
+        {timezones.map(({ label: tzLabel, tz }, i) => (
+          <div key={tz} className={`departure-timezones__entry${i === 0 ? ' departure-timezones__entry--primary' : ''}`}>
             <span className="departure-timezones__city">{tzLabel}</span>
             <span className="departure-timezones__time">{formatTime(departureDate, tz)}</span>
           </div>

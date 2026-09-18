@@ -8,10 +8,22 @@ interface UseConfigResult {
 }
 
 const REQUIRED_STRING_FIELDS: (keyof VacationConfig)[] = [
-  'tripName', 'subtitle', 'departureDate', 'destination', 'completionMessage',
+  'departureDate', 'destination',
+];
+
+const REQUIRED_LOCALIZED_FIELDS: (keyof VacationConfig)[] = [
+  'tripName', 'subtitle', 'completionMessage',
 ];
 
 const HEX_RE = /^#[0-9a-fA-F]{3,8}$/;
+
+function isNonEmptyLocalizedString(val: unknown): boolean {
+  if (typeof val === 'string') return val.trim().length > 0;
+  if (val && typeof val === 'object') {
+    return Object.values(val).some((v) => typeof v === 'string' && v.trim().length > 0);
+  }
+  return false;
+}
 
 function validateConfig(raw: unknown): VacationConfig {
   if (!raw || typeof raw !== 'object') {
@@ -21,6 +33,12 @@ function validateConfig(raw: unknown): VacationConfig {
 
   for (const field of REQUIRED_STRING_FIELDS) {
     if (typeof cfg[field] !== 'string' || !(cfg[field] as string).trim()) {
+      throw new Error(`config.json: campo requerido faltante o vacío — "${field}"`);
+    }
+  }
+
+  for (const field of REQUIRED_LOCALIZED_FIELDS) {
+    if (!isNonEmptyLocalizedString(cfg[field])) {
       throw new Error(`config.json: campo requerido faltante o vacío — "${field}"`);
     }
   }

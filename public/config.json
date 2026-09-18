@@ -9,12 +9,12 @@
     "en": "Getting ready for a new adventure",
     "ru": "Готовимся к новому приключению"
   },
-  "departureDate": "2026-10-22T08:00:00Z",
-  "timezone": "America/Mexico_City",
-  "language": "es",
+  "departureDate": "2026-10-21T22:40:00Z",
+  "timezone": "Europe/Moscow",
+  "language": "ru",
   "timezones": [
-    { "label": "México",  "tz": "America/Mexico_City" },
-    { "label": "Москва",  "tz": "Europe/Moscow" }
+    { "label": "Москва",  "tz": "Europe/Moscow" },
+    { "label": "México",  "tz": "America/Mexico_City" }
   ],
   "destination": "Cancún, México",
   "destinationImage": "/images/mexico.png",

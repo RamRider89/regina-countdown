@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react';
 import { VacationConfig, Locale } from '../types/config';
 import { CountdownGrid } from './CountdownGrid';
 import { DestinationCard } from './DestinationCard';
@@ -14,11 +15,20 @@ interface Props {
 const IMAGE_EXTS = /\.(webp|gif|png|jpg|jpeg|avif)$/i;
 
 export function Hero({ config }: Props) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
   const isMobile = typeof window !== 'undefined' &&
     window.matchMedia('(max-width: 767px)').matches;
 
   const bgSrc = (isMobile && config.backgroundVideoMobile) || config.backgroundVideo;
   const isImageBg = bgSrc ? IMAGE_EXTS.test(bgSrc) : false;
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    video.muted = true;
+    video.play().catch(() => {});
+  }, [bgSrc]);
 
   const locale: Locale = config.language ?? 'es';
   const t = translations[locale];
@@ -47,6 +57,7 @@ export function Hero({ config }: Props) {
             decoding="async"
           />
         : <video
+            ref={videoRef}
             className="hero__video-bg"
             src={bgSrc}
             poster={config.backgroundImage}
@@ -54,7 +65,7 @@ export function Hero({ config }: Props) {
             muted
             loop
             playsInline
-            preload="none"
+            preload="auto"
             aria-hidden="true"
           />
       )}

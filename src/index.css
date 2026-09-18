@@ -532,7 +532,7 @@ body {
 }
 
 @media (max-width: 767px) {
-  .floating-sticker { display: none; }
+  .floating-sticker { width: clamp(32px, 12vw, 64px) !important; }
 }
 
 /* ── Celebration Overlay ─────────────────────── */

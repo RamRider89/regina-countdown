@@ -71,9 +71,9 @@ Archivo: `public/config.json` — se carga en runtime, **sin recompilar**.
 | `language` | `'es' \| 'en' \| 'ru'` | `'es'` | Idioma activo de la UI |
 | `timezones` | `TimezoneEntry[]` | `[]` | Horas de salida por ciudad en DepartureTimezones |
 | `destinationImage` | `string` (URL o path) | — | Imagen en DestinationCard |
-| `backgroundImage` | `string` | — | Imagen de fondo (poster / fallback) |
-| `backgroundVideo` | `string` | — | Video de fondo desktop |
-| `backgroundVideoMobile` | `string` | — | Video de fondo mobile. Si igual a `backgroundVideo`, usa el mismo |
+| `backgroundImage` | `string` | — | Poster del video y fallback cuando autoplay falla (ej: iOS Low Power Mode) |
+| `backgroundVideo` | `string` | — | Video de fondo desktop/tablet |
+| `backgroundVideoMobile` | `string` | — | Video de fondo mobile. Si igual a `backgroundVideo`, usa el mismo archivo |
 | `stickers` | `string[]` | `[]` | URLs de stickers Giphy (.webp) para FloatingStickers |
 | `gallery` | `string[]` | `[]` | URLs de fotos para PhotoGallery |
 

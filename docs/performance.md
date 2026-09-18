@@ -73,10 +73,26 @@ Google Fonts con carga no bloqueante (en `index.html`):
 <link rel="preload" as="image" href="/images/beach-long.webp" fetchpriority="high" />
 ```
 
-En el elemento `<video>`:
-- `preload="none"` — no descarga hasta que el browser lo necesite
-- `poster="/images/beach-long.webp"` — imagen inmediata mientras carga el video
-- `autoplay muted loop playsinline` — para reproducción automática en mobile
+En el elemento `<video>` (Hero.tsx):
+- `preload="auto"` — el browser descarga el video para reproducción inmediata
+- `poster="/images/beach-long.webp"` — imagen visible mientras carga el video
+- `autoPlay muted loop playsInline` — requeridos para autoplay en todos los browsers
+- `<source src type="video/mp4">` — hint de MIME type explícito requerido por Safari iOS
+
+#### Autoplay en iOS (Safari + Chrome)
+
+iOS (Safari y Chrome) usan WKWebView y comparten las mismas políticas de autoplay.
+La implementación actual intenta reproducir en todos los dispositivos y usa el poster como fallback:
+
+```tsx
+// Fix bug de React: JSX muted no escribe el atributo DOM que Safari verifica
+video.muted = true;
+// Si autoplay falla (Low Power Mode u otras políticas), mostrar poster
+video.play().catch(() => setVideoFailed(true));
+```
+
+Si `play()` rechaza, el componente renderiza `<img src={backgroundImage}>` en lugar del video.
+Verificado funcionando en iPhone con Safari y Chrome (iOS).
 
 ### Imágenes lazy
 

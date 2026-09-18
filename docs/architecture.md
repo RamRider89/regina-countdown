@@ -23,7 +23,7 @@ src/
     useConfig.ts       # GET /config.json → valida → VacationConfig
     useCountdown.ts    # setInterval → TimeRemaining (days/hours/minutes/seconds)
   components/
-    Hero.tsx           # Raíz visual: fondo video/img, FloatingStickers, todo el layout
+    Hero.tsx           # Raíz visual: fondo video/img (con fallback iOS), FloatingStickers, layout
     CountdownGrid.tsx  # 4 cards + mensaje de expiración
     CountdownCard.tsx  # Card individual: valor + unidad
     CtaButton.tsx      # Botón externo con primaryColor
@@ -44,7 +44,7 @@ public/
 
 .github/
   workflows/
-    azure-deploy.yml   # CI/CD: test → build → deploy en push/PR a main
+    azure-static-web-apps-purple-pebble-07a0da800.yml  # CI/CD: test → build → deploy
 ```
 
 ## Flujo de datos

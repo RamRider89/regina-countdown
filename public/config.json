@@ -1,13 +1,48 @@
 {
-  "targetDate": "2027-01-01T00:00:00Z",
-  "timezone": "America/Mexico_City",
-  "title": "Próximo Gran Lanzamiento",
-  "subtitle": "Falta muy poco para comenzar",
-  "backgroundImage": "",
-  "logo": "",
-  "primaryColor": "#0057B8",
-  "secondaryColor": "#00A3E0",
-  "ctaText": "Conoce Más",
-  "ctaUrl": "https://example.com",
-  "completionMessage": "¡Ya comenzamos!"
+  "tripName": {
+    "es": "Vacaciones en México",
+    "en": "Mexico Vacation",
+    "ru": "Отпуск в Мексике"
+  },
+  "subtitle": {
+    "es": "Preparándonos para una nueva aventura",
+    "en": "Getting ready for a new adventure",
+    "ru": "Готовимся к новому приключению"
+  },
+  "departureDate": "2026-10-21T22:40:00Z",
+  "timezone": "Europe/Moscow",
+  "language": "ru",
+  "timezones": [
+    { "label": "Москва",  "tz": "Europe/Moscow" },
+    { "label": "México",  "tz": "America/Mexico_City" }
+  ],
+  "destination": "Cancún, México",
+  "destinationImage": "/images/mexico.webp",
+  "participants": [
+    { "name": "Carlos", "avatar": "https://media.giphy.com/media/niqMm1JmwVXkg7aCjM/giphy.webp" },
+    { "name": "Regina", "avatar": "https://media.giphy.com/media/ufaVXKvdElqVPed2rz/giphy.webp" }
+  ],
+  "theme": {
+    "primaryColor": "#0078D8",
+    "secondaryColor": "#F5C040",
+    "accentColor": "#00C8F0"
+  },
+  "backgroundImage": "/images/beach-long.webp",
+  "backgroundVideo": "/videos/beach-long-r2.mp4",
+  "backgroundVideoMobile": "/videos/beach-long-r2.mp4",
+  "stickers": [
+    "https://media.giphy.com/media/jQEoQirqCJF3wukoPW/giphy.webp",
+    "https://media.giphy.com/media/zyzoHV0OMykQvBO6kx/giphy.webp",
+    "https://media.giphy.com/media/EDHwZS3acpEJxlSJPV/giphy.webp",
+    "https://media.giphy.com/media/cmlfw4YYnnHP1xZFlZ/giphy.webp",
+    "https://media.giphy.com/media/ckMftBOEP69UhH9hnh/giphy.webp",
+    "https://media.giphy.com/media/NSHtY1EcjHniOdmbA1/giphy.webp",
+    "https://media.giphy.com/media/ZElJO65yZ9GsZQzFdY/giphy.webp"
+  ],
+  "gallery": ["/images/beach-1.webp", "/images/beach-2.webp"],
+  "completionMessage": {
+    "es": "🎉 ¡Llegó el gran día! Es momento de comenzar la aventura.",
+    "en": "🎉 The big day is here! Time to start the adventure.",
+    "ru": "🎉 Великий день настал! Пора начинать приключение."
+  }
 }

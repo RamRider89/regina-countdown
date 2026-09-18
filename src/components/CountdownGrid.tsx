@@ -1,32 +1,23 @@
-import { useEffect } from 'react';
 import { CountdownCard } from './CountdownCard';
+import { CelebrationOverlay } from './CelebrationOverlay';
 import { useCountdown } from '../hooks/useCountdown';
-import { CountdownConfig } from '../types/config';
+import { VacationConfig } from '../types/config';
+import { translations, Locale } from '../i18n/translations';
+import { localize } from '../i18n/localize';
 
 interface Props {
-  config: CountdownConfig;
+  config: VacationConfig;
 }
 
-const UNITS = [
-  { key: 'days'    as const, label: 'Días' },
-  { key: 'hours'   as const, label: 'Horas' },
-  { key: 'minutes' as const, label: 'Minutos' },
-  { key: 'seconds' as const, label: 'Segundos' },
-];
-
-const REDIRECT_DELAY_MS = 5_000;
+const UNIT_KEYS = ['days', 'hours', 'minutes', 'seconds'] as const;
 
 export function CountdownGrid({ config }: Props) {
-  const time = useCountdown(config.targetDate);
-
-  useEffect(() => {
-    if (!time.isExpired || !config.ctaUrl) return;
-    const id = setTimeout(() => { window.location.href = config.ctaUrl; }, REDIRECT_DELAY_MS);
-    return () => clearTimeout(id);
-  }, [time.isExpired, config.ctaUrl]);
+  const time = useCountdown(config.departureDate);
+  const locale: Locale = config.language ?? 'es';
+  const t = translations[locale];
 
   if (time.isExpired) {
-    return <p className="completion-message">{config.completionMessage}</p>;
+    return <CelebrationOverlay message={localize(config.completionMessage, locale)} />;
   }
 
   return (
@@ -35,10 +26,10 @@ export function CountdownGrid({ config }: Props) {
       role="timer"
       aria-live="polite"
       aria-atomic="true"
-      aria-label="Cuenta regresiva"
+      aria-label={t.countdownAriaLabel}
     >
-      {UNITS.map(({ key, label }) => (
-        <CountdownCard key={key} value={time[key]} label={label} />
+      {UNIT_KEYS.map((key) => (
+        <CountdownCard key={key} value={time[key]} label={t.countdown[key]} />
       ))}
     </div>
   );

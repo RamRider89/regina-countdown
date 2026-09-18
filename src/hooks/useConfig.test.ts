@@ -1,17 +1,20 @@
 import { renderHook, waitFor } from '@testing-library/react';
-import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
+import { describe, it, expect, afterEach, vi } from 'vitest';
 import { useConfig } from './useConfig';
 
 const VALID_CONFIG = {
-  targetDate: '2027-01-01T00:00:00Z',
+  tripName: 'Vacaciones en Japón',
+  subtitle: 'Preparándonos para una nueva aventura',
+  departureDate: '2027-04-10T08:00:00Z',
   timezone: 'America/Mexico_City',
-  title: 'Lanzamiento',
-  subtitle: 'Falta poco',
-  primaryColor: '#0057B8',
-  secondaryColor: '#00A3E0',
-  ctaText: 'Conoce Más',
-  ctaUrl: 'https://example.com',
-  completionMessage: '¡Ya comenzamos!',
+  destination: 'Tokio, Japón',
+  participants: ['Carlos', 'Andrea'],
+  theme: {
+    primaryColor: '#3B82F6',
+    secondaryColor: '#F97316',
+    accentColor: '#22C55E',
+  },
+  completionMessage: '¡Es hora de viajar!',
 };
 
 function mockFetch(body: unknown, ok = true, status = 200) {
@@ -26,7 +29,6 @@ describe('useConfig', () => {
   afterEach(() => vi.unstubAllGlobals());
 
   it('starts in loading state', () => {
-    // Never-resolving fetch so the state update never fires after the test
     vi.stubGlobal('fetch', vi.fn().mockReturnValue(new Promise(() => {})));
     const { result } = renderHook(() => useConfig());
     expect(result.current.loading).toBe(true);
@@ -54,41 +56,51 @@ describe('useConfig', () => {
     expect(result.current.error).toMatch(/HTTP 404/);
   });
 
-  it('sets error when a required field is missing', async () => {
-    const { title: _omit, ...noTitle } = VALID_CONFIG;
-    mockFetch(noTitle);
+  it('sets error when a required string field is missing', async () => {
+    const { tripName: _omit, ...noTripName } = VALID_CONFIG;
+    mockFetch(noTripName);
     const { result } = renderHook(() => useConfig());
 
     await waitFor(() => expect(result.current.loading).toBe(false));
 
-    expect(result.current.error).toMatch(/title/);
+    expect(result.current.error).toMatch(/tripName/);
   });
 
-  it('sets error for an invalid targetDate', async () => {
-    mockFetch({ ...VALID_CONFIG, targetDate: 'not-a-date' });
+  it('sets error for an invalid departureDate', async () => {
+    mockFetch({ ...VALID_CONFIG, departureDate: 'not-a-date' });
     const { result } = renderHook(() => useConfig());
 
     await waitFor(() => expect(result.current.loading).toBe(false));
 
-    expect(result.current.error).toMatch(/targetDate/);
+    expect(result.current.error).toMatch(/departureDate/);
   });
 
-  it('sets error for an invalid primaryColor', async () => {
-    mockFetch({ ...VALID_CONFIG, primaryColor: 'blue' });
+  it('sets error when participants is not an array', async () => {
+    mockFetch({ ...VALID_CONFIG, participants: 'Carlos' });
     const { result } = renderHook(() => useConfig());
 
     await waitFor(() => expect(result.current.loading).toBe(false));
 
-    expect(result.current.error).toMatch(/primaryColor/);
+    expect(result.current.error).toMatch(/participants/);
   });
 
-  it('sets error for an invalid secondaryColor', async () => {
-    mockFetch({ ...VALID_CONFIG, secondaryColor: 'rgb(0,0,0)' });
+  it('sets error for an invalid theme color', async () => {
+    mockFetch({ ...VALID_CONFIG, theme: { ...VALID_CONFIG.theme, primaryColor: 'blue' } });
     const { result } = renderHook(() => useConfig());
 
     await waitFor(() => expect(result.current.loading).toBe(false));
 
-    expect(result.current.error).toMatch(/secondaryColor/);
+    expect(result.current.error).toMatch(/theme\.primaryColor/);
+  });
+
+  it('sets error when theme is missing', async () => {
+    const { theme: _omit, ...noTheme } = VALID_CONFIG;
+    mockFetch(noTheme);
+    const { result } = renderHook(() => useConfig());
+
+    await waitFor(() => expect(result.current.loading).toBe(false));
+
+    expect(result.current.error).toMatch(/theme/);
   });
 
   it('sets error when config is not an object', async () => {

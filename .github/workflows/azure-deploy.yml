@@ -38,6 +38,7 @@ jobs:
           action: upload
           app_location: /
           output_location: dist
+          skip_app_build: true
 
   close_pull_request:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'

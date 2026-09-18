@@ -261,6 +261,55 @@ body {
   animation: fade-up 0.5s 0.4s ease both;
 }
 
+/* ── Departure Timezones ─────────────────────── */
+
+.departure-timezones {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding: 0.75rem 1.25rem;
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-card);
+  box-shadow: var(--glass-shadow);
+}
+
+.departure-timezones__label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.departure-timezones__list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.departure-timezones__entry {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+}
+
+.departure-timezones__city {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+}
+
+.departure-timezones__time {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--color-text);
+  font-variant-numeric: tabular-nums;
+}
+
 /* ── Destination Card ────────────────────────── */
 
 .destination-card {

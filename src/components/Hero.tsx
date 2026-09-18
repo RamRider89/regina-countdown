@@ -1,8 +1,11 @@
-import { VacationConfig } from '../types/config';
+import { VacationConfig, Locale } from '../types/config';
 import { CountdownGrid } from './CountdownGrid';
 import { DestinationCard } from './DestinationCard';
 import { TravelersGallery } from './TravelersGallery';
 import { FloatingStickers } from './FloatingStickers';
+import { DepartureTimezones } from './DepartureTimezones';
+import { translations } from '../i18n/translations';
+import { localize } from '../i18n/localize';
 
 interface Props {
   config: VacationConfig;
@@ -14,6 +17,9 @@ export function Hero({ config }: Props) {
     window.matchMedia('(max-width: 767px)').matches
       ? config.backgroundVideoMobile
       : config.backgroundVideo;
+
+  const locale: Locale = config.language ?? 'es';
+  const t = translations[locale];
 
   const avatarUrls = new Set(
     config.participants.map((p) => p.avatar).filter(Boolean)
@@ -43,14 +49,21 @@ export function Hero({ config }: Props) {
         />
       )}
       <div className="hero__content">
-        <p className="hero__eyebrow">✈️ La aventura comienza en...</p>
-        <h1 className="hero__title">{config.tripName}</h1>
-        <p className="hero__subtitle">{config.subtitle}</p>
+        <p className="hero__eyebrow">{t.eyebrow}</p>
+        <h1 className="hero__title">{localize(config.tripName, locale)}</h1>
+        <p className="hero__subtitle">{localize(config.subtitle, locale)}</p>
 
         <CountdownGrid config={config} />
 
         <div className="hero__info-row">
           <DestinationCard destination={config.destination} destinationImage={config.destinationImage} />
+          {config.timezones && config.timezones.length > 0 && (
+            <DepartureTimezones
+              departureDate={config.departureDate}
+              timezones={config.timezones}
+              label={t.departure}
+            />
+          )}
         </div>
 
         <TravelersGallery participants={config.participants} />

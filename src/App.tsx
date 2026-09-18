@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useConfig } from './hooks/useConfig';
 import { Hero } from './components/Hero';
+import { localize } from './i18n/localize';
 
 export default function App() {
   const { config, error, loading } = useConfig();
@@ -8,14 +9,15 @@ export default function App() {
   useEffect(() => {
     if (!config) return;
 
+    const locale = config.language ?? 'es';
     const root = document.documentElement;
     root.style.setProperty('--primary-color', config.theme.primaryColor);
     root.style.setProperty('--secondary-color', config.theme.secondaryColor);
     root.style.setProperty('--accent-color', config.theme.accentColor);
 
-    document.title = `✈️ ${config.tripName}`;
+    document.title = `✈️ ${localize(config.tripName, locale)}`;
     const meta = document.querySelector('meta[name="description"]');
-    if (meta) meta.setAttribute('content', config.subtitle);
+    if (meta) meta.setAttribute('content', localize(config.subtitle, locale));
   }, [config]);
 
   if (loading) {

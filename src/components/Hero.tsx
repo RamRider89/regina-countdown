@@ -17,8 +17,7 @@ export function Hero({ config }: Props) {
   const isMobile = typeof window !== 'undefined' &&
     window.matchMedia('(max-width: 767px)').matches;
 
-  const mobileSrc = isMobile ? config.backgroundVideoMobile : undefined;
-  const bgSrc = mobileSrc ?? config.backgroundVideo;
+  const bgSrc = (isMobile && config.backgroundVideoMobile) || config.backgroundVideo;
   const isImageBg = bgSrc ? IMAGE_EXTS.test(bgSrc) : false;
 
   const locale: Locale = config.language ?? 'es';

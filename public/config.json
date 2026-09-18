@@ -29,7 +29,7 @@
   },
   "backgroundImage": "/images/beach-long.webp",
   "backgroundVideo": "/videos/beach-long-r2.mp4",
-  "backgroundVideoMobile": "/videos/beach-mobile-r2.webp",
+  "backgroundVideoMobile": "/videos/beach-long-r2.mp4",
   "stickers": [
     "https://media.giphy.com/media/jQEoQirqCJF3wukoPW/giphy.webp",
     "https://media.giphy.com/media/zyzoHV0OMykQvBO6kx/giphy.webp",

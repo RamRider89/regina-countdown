@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { VacationConfig, Locale } from '../types/config';
 import { CountdownGrid } from './CountdownGrid';
 import { DestinationCard } from './DestinationCard';
@@ -14,26 +14,23 @@ interface Props {
 
 const IMAGE_EXTS = /\.(webp|gif|png|jpg|jpeg|avif)$/i;
 
-// iOS (Safari + Chrome) usa WKWebView — bloquea autoplay a nivel OS.
-// No hay workaround cuando Low Power Mode está activo. Mostramos poster.
-const isIOS = typeof navigator !== 'undefined' &&
-  /iPad|iPhone|iPod/.test(navigator.userAgent);
-
 export function Hero({ config }: Props) {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [videoFailed, setVideoFailed] = useState(false);
 
   const isMobile = typeof window !== 'undefined' &&
     window.matchMedia('(max-width: 767px)').matches;
 
   const bgSrc = (isMobile && config.backgroundVideoMobile) || config.backgroundVideo;
   const isImageBg = bgSrc ? IMAGE_EXTS.test(bgSrc) : false;
-  const usePoster = isIOS && !!config.backgroundImage;
 
   useEffect(() => {
+    setVideoFailed(false);
     const video = videoRef.current;
     if (!video) return;
+    // Fix React muted prop bug: JSX muted no escribe el atributo DOM que Safari verifica
     video.muted = true;
-    video.play().catch(() => {});
+    video.play().catch(() => setVideoFailed(true));
   }, [bgSrc]);
 
   const locale: Locale = config.language ?? 'es';
@@ -54,10 +51,10 @@ export function Hero({ config }: Props) {
       }
     >
       {stickerPool.length > 0 && <FloatingStickers pool={stickerPool} maxVisible={3} />}
-      {bgSrc && (isImageBg || usePoster
+      {bgSrc && (isImageBg || videoFailed
         ? <img
             className="hero__video-bg"
-            src={usePoster ? config.backgroundImage : bgSrc}
+            src={videoFailed && config.backgroundImage ? config.backgroundImage : bgSrc}
             alt=""
             aria-hidden="true"
             decoding="async"
@@ -65,7 +62,6 @@ export function Hero({ config }: Props) {
         : <video
             ref={videoRef}
             className="hero__video-bg"
-            src={bgSrc}
             poster={config.backgroundImage}
             autoPlay
             muted
@@ -73,7 +69,9 @@ export function Hero({ config }: Props) {
             playsInline
             preload="auto"
             aria-hidden="true"
-          />
+          >
+            <source src={bgSrc} type="video/mp4" />
+          </video>
       )}
       <div className="hero__content">
         <p className="hero__eyebrow">{t.eyebrow}</p>

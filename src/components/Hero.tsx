@@ -14,6 +14,11 @@ interface Props {
 
 const IMAGE_EXTS = /\.(webp|gif|png|jpg|jpeg|avif)$/i;
 
+// iOS (Safari + Chrome) usa WKWebView — bloquea autoplay a nivel OS.
+// No hay workaround cuando Low Power Mode está activo. Mostramos poster.
+const isIOS = typeof navigator !== 'undefined' &&
+  /iPad|iPhone|iPod/.test(navigator.userAgent);
+
 export function Hero({ config }: Props) {
   const videoRef = useRef<HTMLVideoElement>(null);
 
@@ -22,6 +27,7 @@ export function Hero({ config }: Props) {
 
   const bgSrc = (isMobile && config.backgroundVideoMobile) || config.backgroundVideo;
   const isImageBg = bgSrc ? IMAGE_EXTS.test(bgSrc) : false;
+  const usePoster = isIOS && !!config.backgroundImage;
 
   useEffect(() => {
     const video = videoRef.current;
@@ -48,10 +54,10 @@ export function Hero({ config }: Props) {
       }
     >
       {stickerPool.length > 0 && <FloatingStickers pool={stickerPool} maxVisible={3} />}
-      {bgSrc && (isImageBg
+      {bgSrc && (isImageBg || usePoster
         ? <img
             className="hero__video-bg"
-            src={bgSrc}
+            src={usePoster ? config.backgroundImage : bgSrc}
             alt=""
             aria-hidden="true"
             decoding="async"

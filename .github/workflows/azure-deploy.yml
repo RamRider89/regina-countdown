@@ -12,6 +12,9 @@ jobs:
     if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
     runs-on: ubuntu-latest
     name: Build and Deploy
+    permissions:
+      id-token: write
+      contents: read
     steps:
       - uses: actions/checkout@v4
 
@@ -30,6 +33,18 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Install OIDC client
+        run: npm install @actions/core@1.6.0 @actions/http-client
+
+      - name: Get OIDC token
+        uses: actions/github-script@v6
+        id: idtoken
+        with:
+          script: |
+            const core = require('@actions/core')
+            return await core.getIDToken()
+          result-encoding: string
+
       - name: Deploy
         uses: azure/static-web-apps-deploy@v1
         with:
@@ -38,6 +53,7 @@ jobs:
           action: upload
           app_location: /
           output_location: build
+          github_id_token: ${{ steps.idtoken.outputs.result }}
 
   close_pull_request:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'

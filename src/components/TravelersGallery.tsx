@@ -13,7 +13,7 @@ export function TravelersGallery({ participants }: Props) {
         <div key={name} className="traveler-card">
           <div className={`traveler-card__avatar${avatar ? ' traveler-card__avatar--image' : ''}`} aria-hidden="true">
             {avatar
-              ? <img src={avatar} alt="" className="traveler-card__avatar-img" />
+              ? <img src={avatar} alt="" className="traveler-card__avatar-img" width="80" height="80" />
               : <UserCircle className="traveler-card__icon" strokeWidth={1.25} />
             }
           </div>

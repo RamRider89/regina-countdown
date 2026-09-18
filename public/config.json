@@ -17,7 +17,7 @@
     { "label": "México",  "tz": "America/Mexico_City" }
   ],
   "destination": "Cancún, México",
-  "destinationImage": "/images/mexico.png",
+  "destinationImage": "/images/mexico.webp",
   "participants": [
     { "name": "Carlos", "avatar": "https://media.giphy.com/media/niqMm1JmwVXkg7aCjM/giphy.webp" },
     { "name": "Regina", "avatar": "https://media.giphy.com/media/ufaVXKvdElqVPed2rz/giphy.webp" }
@@ -27,7 +27,7 @@
     "secondaryColor": "#F5C040",
     "accentColor": "#00C8F0"
   },
-  "backgroundImage": "/images/beach-long.png",
+  "backgroundImage": "/images/beach-long.webp",
   "backgroundVideo": "/videos/beach-long-r.mp4",
   "backgroundVideoMobile": "/videos/beach-mobile-r.mp4",
   "stickers": [
@@ -39,7 +39,7 @@
     "https://media.giphy.com/media/NSHtY1EcjHniOdmbA1/giphy.webp",
     "https://media.giphy.com/media/ZElJO65yZ9GsZQzFdY/giphy.webp"
   ],
-  "gallery": ["/images/beach-1.png", "/images/beach-2.png"],
+  "gallery": ["/images/beach-1.webp", "/images/beach-2.webp"],
   "completionMessage": {
     "es": "🎉 ¡Llegó el gran día! Es momento de comenzar la aventura.",
     "en": "🎉 The big day is here! Time to start the adventure.",

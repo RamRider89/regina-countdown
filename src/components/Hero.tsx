@@ -45,6 +45,7 @@ export function Hero({ config }: Props) {
           muted
           loop
           playsInline
+          preload="none"
           aria-hidden="true"
         />
       )}

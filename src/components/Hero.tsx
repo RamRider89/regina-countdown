@@ -11,12 +11,15 @@ interface Props {
   config: VacationConfig;
 }
 
+const IMAGE_EXTS = /\.(webp|gif|png|jpg|jpeg|avif)$/i;
+
 export function Hero({ config }: Props) {
-  const videoSrc = config.backgroundVideoMobile &&
-    typeof window !== 'undefined' &&
-    window.matchMedia('(max-width: 767px)').matches
-      ? config.backgroundVideoMobile
-      : config.backgroundVideo;
+  const isMobile = typeof window !== 'undefined' &&
+    window.matchMedia('(max-width: 767px)').matches;
+
+  const mobileSrc = isMobile ? config.backgroundVideoMobile : undefined;
+  const bgSrc = mobileSrc ?? config.backgroundVideo;
+  const isImageBg = bgSrc ? IMAGE_EXTS.test(bgSrc) : false;
 
   const locale: Locale = config.language ?? 'es';
   const t = translations[locale];
@@ -36,18 +39,25 @@ export function Hero({ config }: Props) {
       }
     >
       {stickerPool.length > 0 && <FloatingStickers pool={stickerPool} maxVisible={3} />}
-      {videoSrc && (
-        <video
-          className="hero__video-bg"
-          src={videoSrc}
-          poster={config.backgroundImage}
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="none"
-          aria-hidden="true"
-        />
+      {bgSrc && (isImageBg
+        ? <img
+            className="hero__video-bg"
+            src={bgSrc}
+            alt=""
+            aria-hidden="true"
+            decoding="async"
+          />
+        : <video
+            className="hero__video-bg"
+            src={bgSrc}
+            poster={config.backgroundImage}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="none"
+            aria-hidden="true"
+          />
       )}
       <div className="hero__content">
         <p className="hero__eyebrow">{t.eyebrow}</p>
